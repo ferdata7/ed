@@ -2,4 +2,4 @@ Este repositório tem o propósito de iniciar alunos de Estatística e Ciência 
 com o desenvolvimento de habilidades de Estruturas de Dados em python (Listas Encadeadas, Pilhas e Filas).
 
 O grupo é composto por:
-Anderson, Fernando, Geison, Paulo, Renato
+Anderson, Fernando, Geison, Paulo e Renato.
