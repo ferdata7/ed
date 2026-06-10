@@ -113,3 +113,48 @@ class DoublyLinkedList:
     # verifica se a lista está vazia
     def esta_vazia(self):
         return self.tamanho == 0
+
+# ===========
+# VERSÃO 3
+# ===========
+class Stack:
+
+    def __init__(self):
+        self.topo = Node("topo") # nó sentinela: não guarda dado real
+        self.tamanho = 0
+
+    # empilha um valor no topo 
+    def push(self, valor):
+        novo = Node(valor)
+        novo.next = self.topo.next
+        self.topo.next = novo
+        self.tamanho += 1
+
+    # desempilha e retorna o valor do topo
+    def pop(self):
+        if self.esta_vazia():
+            print("Erro! Pilha vazia — não é possível desfazer!")
+            return None
+        removido = self.topo.next
+        self.topo.next = removido.next
+        self.tamanho -= 1
+        return removido.data
+
+    # apenas espia o topo sem remover
+    def peek(self):
+        if self.esta_vazia():
+            return None
+        return self.topo.next.data
+
+    # verifica se a pilha está vazia
+    def esta_vazia(self):
+        return self.tamanho == 0
+
+    # representação textual
+    def __str__(self):
+        atual  = self.topo.next
+        saida  = "Pilha(undo): "
+        while atual:
+            saida += str(atual.data) + " -> "
+            atual  = atual.next
+        return saida
