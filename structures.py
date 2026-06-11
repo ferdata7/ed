@@ -120,7 +120,7 @@ class DoublyLinkedList:
 class Stack:
 
     def __init__(self):
-        self.topo = Node("topo") # nó sentinela: não guarda dado real
+        self.topo    = Node("topo") # nó sentinela: não guarda dado real
         self.tamanho = 0
 
     # empilha um valor no topo 
@@ -156,5 +156,43 @@ class Stack:
         saida  = "Pilha(undo): "
         while atual:
             saida += str(atual.data) + " -> "
-            atual  = atual.next
+            atual = atual.next
         return saida
+
+# ===========
+# VERSÃO 4
+# ===========
+if __name__ == "__main__":
+    from datetime import datetime
+
+    print("=" * 50)
+    print("TESTE — Node e Order")
+    print("=" * 50)
+    o1 = Order(1, 'C', 50.00, 100, datetime.now())
+    o2 = Order(2, 'V', 48.50, 200, datetime.now())
+    print(o1)
+    print(o2)
+
+    print("\n" + "=" * 50)
+    print("TESTE — DoublyLinkedList")
+    print("=" * 50)
+    lista = DoublyLinkedList()
+    lista.insere_final(o1)
+    lista.insere_final(o2)
+    print("Lista após inserções:")
+    lista.imprime()
+    lista.remove_por_id(1)
+    print("Lista após remover ordem #1:")
+    lista.imprime()
+
+    print("\n" + "=" * 50)
+    print("TESTE — Stack (Pilha de Undo)")
+    print("=" * 50)
+    pilha = Stack()
+    pilha.push(1)
+    pilha.push(2)
+    pilha.push(3)
+    print(pilha)
+    print("Pop:", pilha.pop())
+    print("Pop:", pilha.pop())
+    print(pilha)
