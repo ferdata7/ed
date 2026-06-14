@@ -22,7 +22,7 @@ class Queue:
     # dequeue: remove e retorna a ordem do INÍCIO
     def dequeue(self):
         if self.esta_vazia():
-            print("Erro! Fila vazia — nenhuma ordem para processar!")
+            print("Erro: Fila vazia, nenhuma ordem para processar!")
             return None
         removido      = self.inicio
         self.inicio   = self.inicio.next
