@@ -30,3 +30,25 @@ class Queue:
             self.fim  = None
         self.tamanho -= 1
         return removido.data
+    # verifica se a fila ta vazia
+    def esta_vazia(self):
+        return self.tamanho == 0
+
+    # retorna o tamanho da fila
+    def size(self):
+        return self.tamanho
+
+    # espia a próxima ordem sem removê-la
+    def peek(self):
+        if self.esta_vazia():
+            return None
+        return self.inicio.data
+
+    # representação textual da fila
+    def __str__(self):
+        atual = self.inicio
+        saida = "Fila de entrada: "
+        while atual is not None:
+            saida += str(atual.data) + " -> "
+            atual = atual.next
+        return saida
