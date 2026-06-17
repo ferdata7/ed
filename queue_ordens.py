@@ -73,3 +73,40 @@ class OrderGenerator:
         for _ in range(n):
             fila.enqueue(self.gera_ordem())
         return fila
+        
+# execução
+if __name__ == "__main__":
+
+    print("=" * 55)
+    print("Teste Comportamento FIFO")
+    print("=" * 55)
+
+    gen  = OrderGenerator()
+    fila = Queue()
+
+    # Insere 5 ordens e mostra a sequência de entrada
+    print("\n Inserindo 5 ordens na fila")
+    for i in range(5):
+        ordem = gen.gera_ordem()
+        fila.enqueue(ordem)
+        print(f"Entrou: {ordem}")
+
+    print(f"\nTamanho da fila: {fila.size()}")
+    print(f"Próxima a sair (peek): {fila.peek()}")
+
+    # Remove todas e confirma que sai na ordem certa (FIFO)
+    print("\n Removendo todas as ordens (deve sair na mesma ordem)")
+    while not fila.esta_vazia():
+        saiu = fila.dequeue()
+        print(f"  Saiu: {saiu}")
+
+    print(f"\nFila vazia? {fila.esta_vazia()}")
+
+    print("\n" + "=" * 55)
+    print("Teste OrderGenerator: lote de 3 ordens")
+    print("=" * 55)
+    fila2 = Queue()
+    gen2  = OrderGenerator()
+    gen2.preenche_fila(fila2, 3)
+    print(f"Ordens na fila: {fila2.size()}")
+    print(fila2)
