@@ -84,3 +84,4 @@ class BuyList:
             print(f"  COMPRA  | Preço: R${item.data.preco:>8.2f} | "
                   f"Qtd: {item.data.quantidade:>5} | ID: #{item.data.id}")
             item = item.next
+            
