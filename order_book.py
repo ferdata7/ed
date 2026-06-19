@@ -17,7 +17,6 @@ class BuyList:
         self.inicio = None
         self.final = None
         self.tamanho = 0
-        
 # insere ordem de compra mantendo ordem decrescente de preço
     def insere_ordenado(self, order: Order):
         novo  = Node(order)
