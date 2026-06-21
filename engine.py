@@ -95,3 +95,38 @@ class MatchEngine:
         if ordem_venda.quantidade == 0:
             self.livro.remove_por_id(ordem_venda.id, 'V')
             print(f"  Ordem de venda  #{ordem_venda.id} totalmente executada e removida.")
+
+# QUARTA ATUALIZAÇAO
+
+    #desfaz a última inserção usando a pilha
+    def undo(self):
+        id_desfazer = self.undo_stack.pop()
+        if id_desfazer is None:
+            print("Nenhuma ação para desfazer!")
+            return
+
+        tipo = self._historico_tipo.get(id_desfazer)
+        if tipo is None:
+            print(f"Erro: tipo da ordem #{id_desfazer} não encontrado.")
+            return
+
+        removeu = self.livro.remove_por_id(id_desfazer, tipo)
+        if removeu:
+            print(f"  Undo realizado: ordem #{id_desfazer} ({tipo}) removida do livro.")
+        else:
+            print(f"  Aviso: ordem #{id_desfazer} não estava mais no livro "
+                  f"(pode já ter sido executada).")
+
+    #exibe o histórico de transações
+    def historico_transacoes(self):
+        print("\n" + "=" * 55)
+        print("  HISTÓRICO DE TRANSAÇÕES")
+        print("=" * 55)
+        if not self.transacoes:
+            print("  Nenhuma transação executada.")
+        for tx in self.transacoes:
+            print(" ", tx)
+        print("=" * 55)
+
+
+
