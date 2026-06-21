@@ -44,3 +44,54 @@ class MatchEngine:
         while not self.fila.esta_vazia():
             ordem = self.fila.dequeue()
             self.process_order(ordem)
+
+
+# terceira atualizacao
+
+    #insere a ordem no livro e empilha o ID para undo
+    def process_order(self, order: Order):
+        self.livro.insere_ordem(order)
+        self.undo_stack.push(order.id)
+        self._historico_tipo[order.id] = order.tipo   # guarda o tipo para desfazer
+        print(f"  Ordem inserida no livro: {order}")
+        self.check_match()
+
+    # verifica se há match entre a melhor compra e a melhor venda
+    # a regra é: preço da melhor compra >= preço da melhor venda
+    def check_match(self):
+        while True:
+            melhor_c = self.livro.melhor_compra()
+            melhor_v = self.livro.melhor_venda()
+
+            if melhor_c is None or melhor_v is None:
+                break   # um dos lados está vazio
+
+            if melhor_c.preco >= melhor_v.preco:
+                self.execute_trade(melhor_c, melhor_v)
+            else:
+                break   # sem match possível
+
+    #executa a transação entre as duas melhores ordens
+    def execute_trade(self, ordem_compra: Order, ordem_venda: Order):
+        # quantidade negociada é o mínimo entre as duas ordens
+        qtd_negociada = min(ordem_compra.quantidade, ordem_venda.quantidade)
+        preco_exec = ordem_venda.preco   # o vendedor define o preço
+
+        # Registra a transação
+        tx = Transaction(ordem_compra.id, ordem_venda.id,
+                         preco_exec, qtd_negociada)
+        self.transacoes.append(tx)
+        print(f"\n  *** MATCH ENCONTRADO! *** {tx}")
+
+        # Atualiza as quantidades
+        ordem_compra.quantidade -= qtd_negociada
+        ordem_venda.quantidade  -= qtd_negociada
+
+        # Remove do livro quem ficou com quantidade zero
+        if ordem_compra.quantidade == 0:
+            self.livro.remove_por_id(ordem_compra.id, 'C')
+            print(f"  Ordem de compra #{ordem_compra.id} totalmente executada e removida.")
+
+        if ordem_venda.quantidade == 0:
+            self.livro.remove_por_id(ordem_venda.id, 'V')
+            print(f"  Ordem de venda  #{ordem_venda.id} totalmente executada e removida.")
