@@ -128,5 +128,84 @@ class MatchEngine:
             print(" ", tx)
         print("=" * 55)
 
+# 
+def exibe_menu():
+    print("\n" + "=" * 45)
+    print("  SIMULADOR DE LIVRO DE OFERTAS")
+    print("=" * 45)
+    print("  1. Inserir nova ordem")
+    print("  2. Ver livro de ofertas")
+    print("  3. Desfazer última ordem (Undo)")
+    print("  4. Ver histórico de transações")
+    print("  5. Sair")
+    print("=" * 45)
+
+
+def coleta_ordem(proximo_id: int) -> Order:
+    print("\n--- Nova Ordem ---")
+
+    tipo = ""
+    while tipo not in ('C', 'V'):
+        tipo = input("Tipo (C=Compra / V=Venda): ").strip().upper()
+        if tipo not in ('C', 'V'):
+            print("Opção inválida. Digite C ou V.")
+
+    while True:
+        try:
+            preco = float(input("Preço (ex: 52.50): R$ "))
+            if preco <= 0:
+                print("Preço deve ser positivo.")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido. Use ponto para decimais (ex: 52.50).")
+
+    while True:
+        try:
+            qtd = int(input("Quantidade de ações: "))
+            if qtd <= 0:
+                print("Quantidade deve ser positiva.")
+                continue
+            break
+        except ValueError:
+            print("Valor inválido. Digite um número inteiro.")
+
+    return Order(proximo_id, tipo, preco, qtd, datetime.now())
+
+def main():
+    motor = MatchEngine()
+    proximo_id = 1
+
+    print("\nBem-vindo ao Simulador de Livro de Ofertas!")
+    print("Disciplina: Estrutura de Dados — Prof. Marcos Mansano Furlan")
+
+    while True:
+        exibe_menu()
+        opcao = input("Escolha uma opção: ").strip()
+
+        if opcao == '1':
+            ordem = coleta_ordem(proximo_id)
+            proximo_id += 1
+            motor.recebe_ordem(ordem)
+
+        elif opcao == '2':
+            motor.livro.display()
+
+        elif opcao == '3':
+            motor.undo()
+
+        elif opcao == '4':
+            motor.historico_transacoes()
+
+        elif opcao == '5':
+            print("\nEncerrando o simulador. Até logo!")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
+
+if __name__ == "__main__":
+    main()
+
 
 
