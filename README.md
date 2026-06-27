@@ -1,5 +1,5 @@
 # Simulador de Livro de Ofertas
-**Disciplina:** Estrutura de Dados em Python  
+**Disciplina:** Estrutura de Dados  
 **Professor:** Marcos Mansano Furlan  
 **Grupo:** Anderson, Fernando, Geison, Paulo e Renato  
 **Objetivo**: Aplicar conceitos de estruturas de dados lineares (Listas Encadeadas, Pilhas e Filas) no desenvolvimento de um motor de negociação financeira. Após isso, realizar análise assintótica do algoritmo para comparar sua performance em cenários de grande volume de dados
